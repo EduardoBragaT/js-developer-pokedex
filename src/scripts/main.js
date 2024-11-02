@@ -45,6 +45,17 @@ function loadPokemonScrollEnd() {
         loadPokemonItensLimited();
     }
 }
+
+function checkScroll() {
+    if (document.body.scrollHeight <= window.innerHeight) {
+        // Ação a ser executada enquanto não houver espaço de rolagem
+        loadPokemonItensLimited();
+        setTimeout(()=>{requestAnimationFrame(checkScroll)},500); // Continua verificando
+    } else {
+        // Ação a ser executada quando houver espaço para rolagem
+        console.log("Espaço de rolagem detectado!");
+    }
+}
 function loadPokemonItensLimited() {
     offset += limit;
     const qtdRecordNextPage = offset + limit;
@@ -65,3 +76,4 @@ loadMoreButton.addEventListener('click', loadPokemonItensLimited)
 window.addEventListener('scroll', loadPokemonScrollEnd);
 
 
+checkScroll(); 
